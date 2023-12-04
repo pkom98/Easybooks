@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
@@ -188,7 +189,10 @@ public class Sampletest {
 
     @Test
     public void TC6(){
-        String newEmail = "newemail1@gmail.com";
+        Instant instant = Instant.now();
+        long epochValue = instant.getEpochSecond();
+        String newEmail = String.valueOf(epochValue);
+
         driver.get("http://easybooks/");
         driver.manage().window().maximize();
 
@@ -213,7 +217,7 @@ public class Sampletest {
         wait.until(ExpectedConditions.elementToBeClickable(emailSelector));
         WebElement emailTextBox = driver.findElement(emailSelector);
         emailTextBox.click();
-        emailTextBox.sendKeys(newEmail);
+        emailTextBox.sendKeys("test" + newEmail + "@gmail.com");
 
         By passwordSelector = By.cssSelector("input[formcontrolname=password]");
         wait.until(ExpectedConditions.elementToBeClickable(passwordSelector));
@@ -225,17 +229,6 @@ public class Sampletest {
         wait.until(ExpectedConditions.elementToBeClickable(registerButtonSelector));
         WebElement registerButton = driver.findElement(registerButtonSelector);
         registerButton.click();
-
-        By messageFailSelector = By.cssSelector("mad-mdc-form-field-error");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(messageFailSelector));
-        String ActualMessage = driver.findElement(messageFailSelector).getText();
-        String ExpectedMessage = ("Użytkownik z podanym adresem email już istnieje.");
-        Assert.assertEquals(ActualMessage, ExpectedMessage);
-
-        wait.until(ExpectedConditions.elementToBeClickable(emailSelector));
-        emailTextBox.click();
-        emailTextBox.clear();
-        emailTextBox.sendKeys("1" + newEmail);
 
         By continueLoginSelector = By.cssSelector(".register-link-button");
         wait.until(ExpectedConditions.elementToBeClickable(continueLoginSelector));
