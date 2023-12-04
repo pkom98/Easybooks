@@ -235,7 +235,7 @@ public class Sampletest {
         wait.until(ExpectedConditions.elementToBeClickable(emailSelector));
         emailTextBox.click();
         emailTextBox.clear();
-        emailTextBox.sendKeys(newEmail + "1");
+        emailTextBox.sendKeys("1" + newEmail);
 
         By continueLoginSelector = By.cssSelector(".register-link-button");
         wait.until(ExpectedConditions.elementToBeClickable(continueLoginSelector));
