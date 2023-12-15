@@ -90,11 +90,26 @@ public class RegistrationPage {
         registerButton.sendKeys(Keys.ENTER);
     }
 
-    public void checkIfMessageFailEmail(String failMessage){
-        By messageFailSelector = By.cssSelector(".mat-mdc-form-field-error");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(messageFailSelector));
-        String ActualMessage = driver.findElement(messageFailSelector).getText();
+    public void checkIfMessageFailOnRegistration(String failMessage){
+        By messageSelector = By.cssSelector(".mat-mdc-form-field-error");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(messageSelector));
+        String ActualMessage = driver.findElement(messageSelector).getText();
         String ExpectedMessage = (failMessage);
         Assert.assertEquals(ActualMessage, ExpectedMessage);
     }
+
+    public void clickOutsideOfFieldToGetValidation(){
+        By firstNameSelector = By.cssSelector("input[formcontrolname=firstName]");
+        wait.until(ExpectedConditions.elementToBeClickable(firstNameSelector));
+        WebElement firstNameTextBox = driver.findElement(firstNameSelector);
+        firstNameTextBox.click();
+    }
+
+    public void goToLogin(){
+        By loginButtonSelector = By.cssSelector(".register-link-button");
+        wait.until(ExpectedConditions.elementToBeClickable(loginButtonSelector));
+        WebElement registerButton = driver.findElement(loginButtonSelector);
+        registerButton.click();
+    }
 }
+
